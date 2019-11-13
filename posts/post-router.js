@@ -6,7 +6,6 @@ const knex = require("../data/db-config.js");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  // List of posts
   try {
     const posts = await knex.select("*").from("posts");
     res.status(200).json({ posts });
@@ -20,7 +19,7 @@ router.get("/:id", async (req, res) => {
     const postByID = await knex
       .select("*")
       .from("posts")
-      .where("id", 2);
+      .where("id", req.params.id);
     res.status(200).json({ postByID });
   } catch (error) {
     res.status(500).json({ error: error.message });
